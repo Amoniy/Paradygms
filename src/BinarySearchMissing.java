@@ -1,5 +1,3 @@
-package Paradygms;
-
 public class BinarySearchMissing {
     //array.length >= 0 && для всех i [1;len-1] array[i-1] >= array[i] && I > l && I <= r
     public static int binIterative(int x, int[] array) {

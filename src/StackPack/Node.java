@@ -1,4 +1,5 @@
-package Paradygms.StackPack;
+package StackPack;
+
 public class Node {
     Object value;
     Node next;

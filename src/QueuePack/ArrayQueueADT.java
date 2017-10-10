@@ -1,15 +1,13 @@
-package Paradygms.QueuePack;
+package QueuePack;
 
 public class ArrayQueueADT {
     private int size = 0;
     private Object[] array = new Object[5];
     private int head = 0;
-    //private int tail = -1;
 
     public static void enqueue(ArrayQueueADT queue, Object object) {
         assert object != null;
         ensure(queue, queue.size + 1);
-        //queue.tail = (queue.tail + 1) % queue.array.length;
         queue.array[(queue.size + queue.head) % queue.array.length] = object;
         queue.size++;
     }
@@ -20,7 +18,6 @@ public class ArrayQueueADT {
             newArray = copy(queue, newArray);
             queue.array = newArray;
             queue.head = 0;
-            //queue.tail = size - 2;
         }
     }
 
@@ -82,37 +79,5 @@ public class ArrayQueueADT {
         queue.size = 0;
         queue.head = 0;
         queue.array = new Object[queue.array.length];
-        //queue.tail = -1;
     }
-
-    /*public static void main(String[] args) {
-        Paradygms.QueuePack.Paradygms.AbstractQueuePack.ArrayQueueADT a = new Paradygms.QueuePack.Paradygms.AbstractQueuePack.ArrayQueueADT();
-        enqueue(a, 1);
-        System.out.println(element(a));
-        System.out.println(dequeue(a));
-        System.out.println(isEmpty(a));
-        System.out.println(size(a));
-        clear(a);
-        System.out.println(isEmpty(a));
-        System.out.println(size(a));
-        System.out.println("\n");
-
-        enqueue(a, 1);
-        enqueue(a, 2);
-        enqueue(a, 3);
-        enqueue(a, 4);
-        enqueue(a, 5);
-        enqueue(a, 6);
-        System.out.println(isEmpty(a));
-        System.out.println(size(a));
-        System.out.println(dequeue(a));
-        System.out.println(dequeue(a));
-        System.out.println(dequeue(a));
-        System.out.println(dequeue(a));
-        System.out.println(dequeue(a));
-        System.out.println(dequeue(a));
-        clear(a);
-        System.out.println(dequeue(a));
-
-    }*/
 }

@@ -1,4 +1,5 @@
-package Paradygms.StackPack;
+package StackPack;
+
 public class LinkedStack implements Stack, Copiable {
     private int size;
     private Node head;

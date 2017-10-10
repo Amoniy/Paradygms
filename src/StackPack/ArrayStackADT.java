@@ -1,4 +1,4 @@
-package Paradygms.StackPack;
+package StackPack;
 
 public class ArrayStackADT {
     private /*static*/ int size;

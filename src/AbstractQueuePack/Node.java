@@ -1,4 +1,4 @@
-package Paradygms.AbstractQueuePack;
+package AbstractQueuePack;
 
 public class Node {
     Object value;

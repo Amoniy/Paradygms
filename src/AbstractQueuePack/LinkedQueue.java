@@ -1,4 +1,4 @@
-package Paradygms.AbstractQueuePack;
+package AbstractQueuePack;
 
 import java.util.function.Predicate;
 

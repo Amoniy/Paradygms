@@ -1,4 +1,4 @@
-package Paradygms.StackPack;
+package StackPack;
 
 import java.util.Arrays;
 

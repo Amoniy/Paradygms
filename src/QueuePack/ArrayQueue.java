@@ -1,21 +1,19 @@
-package Paradygms.AbstractQueuePack;
+package QueuePack;
 
-import java.util.function.Predicate;
+public class ArrayQueue {
 
-public class ArrayQueue extends AbstractQueue implements Queue {
     //Inv: for each i [0..array.length-1] array[i]!=null and size>=0
+    private int size = 0;
     private Object[] array = new Object[5];
     private int head = 0;
-    //private int tail = -1;
 
     // pre: object ≠ null
     // post: size = size' + 1 ∧ array[(head+size)%array.length] = element
-    protected void enqueueImpl(Object object) {
+    public void enqueue(Object object) {
+        assert object != null;
         ensure(size + 1);
         array[(size + head) % array.length] = object;//
-        //tail = (tail + 1) % array.length;
-        //size++;
-        //array[tail] = object;
+        size++;
     }
 
     // post:
@@ -40,8 +38,7 @@ public class ArrayQueue extends AbstractQueue implements Queue {
     //post: R='['+array[0]+', '+...+', '+array[arrat.length-1]+']'    size=size' for each i[0...array.length-1] array[i]=array'[i]
     public String toStr() {
         StringBuilder builder = new StringBuilder();
-        Object[] newArray = new Object[size];
-        newArray = toArrayImpl(newArray);
+        Object[] newArray = toArray();
         builder.append('[');
         for (int i = 0; i < newArray.length - 1; i++) {
             builder.append(newArray[i].toString());
@@ -55,38 +52,13 @@ public class ArrayQueue extends AbstractQueue implements Queue {
         return builder.toString();
     }
 
-    protected void remove() {
-        head = (head + 1) % array.length;
-    }
-
-    protected ArrayQueue filterImpl(Predicate<Object> predicate) {
-        ArrayQueue queue = new ArrayQueue();
-        int anotherHead = head;
-        for (int i = 0; i < size; i++) {
-            if (predicate.test(array[anotherHead])) {
-                queue.enqueue(array[anotherHead]);
-            }
-            anotherHead = (anotherHead + 1) % array.length;
-        }
-        return queue;
-    }
-
-    protected ArrayQueue mapImpl(java.util.function.Function<Object, Object> func) {
-        ArrayQueue queue = new ArrayQueue();
-        int anotherHead = head;
-        for (int i = 0; i < size; i++) {
-            queue.enqueue(func.apply(array[anotherHead]));
-            anotherHead = (anotherHead + 1) % array.length;
-        }
-        return queue;
-    }
-
 
     // post: R = newArray:
     //      if((head+size-1)%array.length>=head): для i=0..size-1 newArray[i]=array[head+i]
     //      else: для i=0..array.length-1 newArray[i]=array[head+i] для j=0..size-array.length+head-1 newArray[size-1+j]=array[j]
     // ∧ size=size'
-    public Object[] toArrayImpl(Object[] newArray) {
+    public Object[] toArray() {
+        Object[] newArray = new Object[size];
         if (size == 0) return newArray;
         newArray = copy(newArray);
         return newArray;
@@ -108,33 +80,35 @@ public class ArrayQueue extends AbstractQueue implements Queue {
 
     // pre: size > 0
     // post: ℝ = array[head] ∧ size = size'
-    protected Object elementImpl() {
+    public Object element() {
+        assert (size > 0);
         return array[head];
     }
 
     // pre: size > 0
     // post: ℝ = array[head] ∧ size = size' − 1 ∧ head = (head' + 1)%array.length
-    protected Object dequeueImpl() {
+    public Object dequeue() {
+        assert (size > 0);
         int marker = head;
         head = (head + 1) % array.length;
+        size--;
         return array[marker];
     }
 
-
     // post: ℝ = size ∧ size = size'
-    //public int size() {
-    //    return size;
-    //}
+    public int size() {
+        return size;
+    }
 
     // post: ℝ = ((true if size=0)||(false if size!=0)) ∧ size = size'
-    //public boolean isEmpty() {
-    //    return size == 0;
-    //}
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
     // post: size=0 head=0
-    protected void clearImpl() {
+    public void clear() {
+        size = 0;
         head = 0;
         array = new Object[array.length];
-        //tail = -1;
     }
 }

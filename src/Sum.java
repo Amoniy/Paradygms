@@ -1,5 +1,3 @@
-package Paradygms;
-
 //javac Paradygms\Paradygms.Sum.java
 //java Paradygms.Paradygms.Sum
 public class Sum {
